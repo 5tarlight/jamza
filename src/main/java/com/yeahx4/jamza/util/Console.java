@@ -1,4 +1,6 @@
 package com.yeahx4.jamza.util;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * Console class provides static methods to help use of system console(stdin).
@@ -76,5 +78,23 @@ public final class Console {
      */
     public static void print(String color1, String color2, String text) {
         print(color1 + color2 + text + ConsoleColor.ANSI_RESET);
+    }
+
+    public static String read() {
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
+
+    public static int read_int() {
+        while(true)
+        {
+            try{
+                Scanner scanner = new Scanner(System.in);
+                return scanner.nextInt();
+            }
+            catch (InputMismatchException ex) {
+                println("input input");
+            }
+        }
     }
 }
