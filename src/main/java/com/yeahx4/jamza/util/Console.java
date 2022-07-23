@@ -150,24 +150,7 @@ public final class Console {
      * @return unique key of option map
      */
     public static String select(LinkedHashMap<String, String> option) {
-        String[] keys = option.keySet().toArray(new String[0]);
-
-        boolean done = false;
-        int answer;
-        do {
-            clear();
-            for (int i = 0; i < keys.length; i++) {
-                println(String.format("%d. %s", i + 1, option.get(keys[i])));
-            }
-
-            println("");
-            answer = readInt("=> ") - 1;
-
-            if (answer < keys.length && answer >= 0)
-                done = true;
-        } while (!done);
-
-        return keys[answer];
+        return select("", option);
     }
 
     /**
@@ -186,7 +169,9 @@ public final class Console {
         int answer;
         do {
             clear();
-            println(title);
+            if (!title.isEmpty())
+                println(title);
+
             for (int i = 0; i < keys.length; i++) {
                 println(String.format("%d. %s", i + 1, option.get(keys[i])));
             }
