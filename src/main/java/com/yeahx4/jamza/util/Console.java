@@ -80,11 +80,33 @@ public final class Console {
         print(color1 + color2 + text + ConsoleColor.ANSI_RESET);
     }
 
+    /**
+     * Read user input of one line.
+     * User required to enter to finish writing
+     * @return text input from user
+     * @see Scanner
+     */
     public static String readLine() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        return scanner.nextLine().trim();
     }
 
+    /**
+     * Read user input after some question printed
+     * same as {@link #readLine()}
+     * @param question Question string to be asked. No {@code \n} will be printed.
+     * @return text input from user
+     * @see #readLine()
+     */
+    public static String readLine(String question) {
+        print(question);
+        return readLine();
+    }
+
+    /**
+     * read input from user. If non-integer value get in, user will be infinitely asked to input again with error message.
+     * @return int input from user
+     */
     public static int readInt() {
         while (true) {
             try {
@@ -94,5 +116,15 @@ public final class Console {
                 println(ConsoleColor.ANSI_RED, "숫자를 입력해주세요.");
             }
         }
+    }
+
+    /**
+     * Read user int input.
+     * @param question question string. This string won't be printed with {@code \n}
+     * @return int input from user
+     */
+    public static int readInt(String question) {
+        print(question);
+        return readInt();
     }
 }

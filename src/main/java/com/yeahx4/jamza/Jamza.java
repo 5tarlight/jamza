@@ -7,7 +7,7 @@ public class Jamza {
     public static void main(String[] args) {
         Console.println(ConsoleColor.ANSI_BLACK, ConsoleColor.ANSI_WHITE_BACKGROUND, "Welcome to Jamza");
 
-        Console.println(ConsoleColor.ANSI_WHITE, ConsoleColor.ANSI_BLACK_BACKGROUND, String.format("%s를 입력했므", Console.readLine()));
+        Console.println(ConsoleColor.ANSI_WHITE, ConsoleColor.ANSI_BLACK_BACKGROUND, String.format("%s를 입력했므", Console.readLine("입력 : ")));
         Console.println(ConsoleColor.ANSI_WHITE, ConsoleColor.ANSI_BLACK_BACKGROUND, String.format("input int: %d", Console.readInt()));
     }
 }
