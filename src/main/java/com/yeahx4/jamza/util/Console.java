@@ -150,7 +150,15 @@ public final class Console {
      * @return unique key of option map
      */
     public static String select(LinkedHashMap<String, String> option) {
-        return select("", option);
+        return select("", option, "");
+    }
+
+    public static String select(LinkedHashMap<String, String> option, String cancelText) {
+        return select("", option, cancelText);
+    }
+
+    public static String select(String title, LinkedHashMap<String, String> option) {
+        return select(title, option, "");
     }
 
     /**
@@ -162,8 +170,9 @@ public final class Console {
      *               sort of map is same as put-order
      * @return unique key of option map
      */
-    public static String select(String title, LinkedHashMap<String, String> option) {
+    public static String select(String title, LinkedHashMap<String, String> option, String cancelText) {
         String[] keys = option.keySet().toArray(new String[0]);
+        final boolean cancelable = !cancelText.isEmpty();
 
         boolean done = false;
         int answer;
@@ -175,12 +184,17 @@ public final class Console {
             for (int i = 0; i < keys.length; i++) {
                 println(String.format("%d. %s", i + 1, option.get(keys[i])));
             }
+            if (cancelable)
+                println(String.format("%d. %s", keys.length + 1, cancelText));
 
             println("");
             answer = readInt("=> ") - 1;
 
-            if (answer < keys.length && answer >= 0)
+            if (answer == keys.length + 1) {
+                return "cancel";
+            } else if (answer < keys.length && answer >= 0)
                 done = true;
+
         } while (!done);
 
         return keys[answer];
