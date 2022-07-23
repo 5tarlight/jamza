@@ -173,7 +173,6 @@ public final class Console {
     public static String select(String title, LinkedHashMap<String, String> option, String cancelText) {
         String[] keys = option.keySet().toArray(new String[0]);
         final boolean cancelable = !cancelText.isEmpty();
-
         boolean done = false;
         int answer;
         do {
@@ -190,7 +189,7 @@ public final class Console {
             println("");
             answer = readInt("=> ") - 1;
 
-            if (answer == keys.length + 1) {
+            if (answer == keys.length) {
                 return "cancel";
             } else if (answer < keys.length && answer >= 0)
                 done = true;
