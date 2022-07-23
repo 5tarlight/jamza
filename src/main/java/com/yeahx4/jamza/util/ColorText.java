@@ -1,9 +1,8 @@
-package com.yeahx4.jamza.util.colortext;
-import com.yeahx4.jamza.util.ConsoleColor;
+package com.yeahx4.jamza.util;
 
 import java.util.HashMap;
 
-public class ColorText {
+public final class ColorText {
 
     public static final String colorCharacter = "&";
     public static final String ignoreCharacter = "\\";
@@ -36,13 +35,7 @@ public class ColorText {
         }
     };
 
-    public String text;
-
-    public ColorText(String formattedText) {
-        text = getColoredText(formattedText);
-    }
-
-    private String getColoredText(String formattedText) {
+    public static String convertColoredText(String formattedText) {
         var splittedText = formattedText.split(colorCharacter);
         var stringBuilder = new StringBuilder();
         var isIgnore = false;
@@ -86,8 +79,4 @@ public class ColorText {
         return stringBuilder.toString();
     }
 
-    @Override
-    public String toString() {
-        return text;
-    }
 }

@@ -1,5 +1,4 @@
 package com.yeahx4.jamza.util;
-import com.yeahx4.jamza.util.colortext.ColorText;
 
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
@@ -202,19 +201,11 @@ public final class Console {
         return keys[answer];
     }
 
-    public static void printc(ColorText colorText) {
-        System.out.print(colorText.text);
-    }
-
     public static void printc(String colorText) {
-        System.out.print(new ColorText(colorText).text);
-    }
-
-    public static void printlnc(ColorText colorText) {
-        System.out.println(colorText.text);
+        System.out.print(ColorText.convertColoredText(colorText));
     }
 
     public static void printlnc(String colorText) {
-        System.out.println(new ColorText(colorText).text);
+        System.out.println(ColorText.convertColoredText(colorText));
     }
 }
