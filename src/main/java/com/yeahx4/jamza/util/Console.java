@@ -93,7 +93,7 @@ public final class Console {
                 return scanner.nextInt();
             }
             catch (InputMismatchException ex) {
-                println("input input");
+                println("input integer");
             }
         }
     }
