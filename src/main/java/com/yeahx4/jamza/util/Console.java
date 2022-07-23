@@ -80,20 +80,18 @@ public final class Console {
         print(color1 + color2 + text + ConsoleColor.ANSI_RESET);
     }
 
-    public static String read() {
+    public static String readLine() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
 
-    public static int read_int() {
-        while(true)
-        {
-            try{
+    public static int readInt() {
+        while (true) {
+            try {
                 Scanner scanner = new Scanner(System.in);
                 return scanner.nextInt();
-            }
-            catch (InputMismatchException ex) {
-                println("input integer");
+            } catch (InputMismatchException ex) {
+                println(ConsoleColor.ANSI_RED, "숫자를 입력해주세요.");
             }
         }
     }
