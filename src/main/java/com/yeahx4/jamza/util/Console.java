@@ -20,7 +20,7 @@ public final class Console {
      * @see java.io.OutputStream
      */
     public static void println(String text) {
-        System.out.println(ConsoleColor.ANSI_RESET + text);
+        System.out.println(ConsoleColor.RESET + text);
     }
 
     /**
@@ -31,7 +31,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void println(String color, String text) {
-        println(color + text + ConsoleColor.ANSI_RESET);
+        println(color + text + ConsoleColor.RESET);
     }
 
     /**
@@ -44,7 +44,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void println(String color1, String color2, String text) {
-        println(color1 + color2 + text + ConsoleColor.ANSI_RESET);
+        println(color1 + color2 + text + ConsoleColor.RESET);
     }
 
     /**
@@ -53,7 +53,7 @@ public final class Console {
      * @see java.io.OutputStream
      */
     public static void print(String text) {
-        System.out.print(ConsoleColor.ANSI_RESET + text);
+        System.out.print(ConsoleColor.RESET + text);
     }
 
     /**
@@ -64,7 +64,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void print(String color, String text) {
-        print(color + text + ConsoleColor.ANSI_RESET + ConsoleColor.ANSI_RESET);
+        print(color + text + ConsoleColor.RESET + ConsoleColor.RESET);
     }
 
     /**
@@ -77,7 +77,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void print(String color1, String color2, String text) {
-        print(color1 + color2 + text + ConsoleColor.ANSI_RESET);
+        print(color1 + color2 + text + ConsoleColor.RESET);
     }
 
     /**
@@ -113,7 +113,7 @@ public final class Console {
                 Scanner scanner = new Scanner(System.in);
                 return scanner.nextInt();
             } catch (InputMismatchException ex) {
-                println(ConsoleColor.ANSI_RED, "숫자를 입력해주세요.");
+                println(ConsoleColor.RED, "숫자를 입력해주세요.");
             }
         }
     }
