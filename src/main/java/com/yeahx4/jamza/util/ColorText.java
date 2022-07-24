@@ -8,9 +8,7 @@ import java.util.HashMap;
  *
  * @author hellun205
  * @since 1.0
- * @deprecated
  */
-@Deprecated
 public final class ColorText {
     /**
      * identifier of color-unique token. If String contains this, it may be a problem.
@@ -51,9 +49,7 @@ public final class ColorText {
      * Convert plain text to ANSI-colored text.
      * @param formattedText text to convert into ANSI.
      * @return ANSI text.
-     * @deprecated 
      */
-    @Deprecated
     public static String convertColoredText(String formattedText) {
         String[] splitText = (String.format("%s%s%s", colorCharacter, "n", formattedText).split(colorCharacter));
         StringBuilder stringBuilder = new StringBuilder();
