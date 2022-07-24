@@ -36,9 +36,9 @@ public final class ColorText {
     };
 
     public static String convertColoredText(String formattedText) {
-        var splittedText = formattedText.split(colorCharacter);
-        var stringBuilder = new StringBuilder();
-        var isIgnore = false;
+        String[] splittedText = formattedText.split(colorCharacter);
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean isIgnore = false;
 
         if (formattedText.length() == 0) {
             return "";
@@ -54,9 +54,9 @@ public final class ColorText {
                     continue;
                 }
 
-                var text = "";
-                var bgTag = str.charAt(0);
-                var fgTag = str.charAt(1);
+                String text = "";
+                char bgTag = str.charAt(0);
+                char fgTag = str.charAt(1);
 
                 if (str.charAt(str.length() - 1) == ignoreCharacter.charAt(0)) {
                     text = str.substring(2, str.length() - 1);
