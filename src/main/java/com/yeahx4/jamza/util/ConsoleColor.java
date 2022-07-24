@@ -1,5 +1,12 @@
 package com.yeahx4.jamza.util;
 
+/**
+ * Set of ANSI console color.
+ * Some terminals not supporting ANSI protocol may be broken.
+ *
+ * @author yeahx4
+ * @since 1.0
+ */
 public interface ConsoleColor {
     String RESET = "\u001B[0m";
 

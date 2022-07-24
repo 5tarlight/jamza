@@ -2,11 +2,29 @@ package com.yeahx4.jamza.util;
 
 import java.util.HashMap;
 
+/**
+ * Support minecraft-style color.
+ * This might cause bug with texts containing & or etc.
+ *
+ * @author hellun205
+ * @since 1.0
+ * @deprecated
+ */
+@Deprecated
 public final class ColorText {
-
+    /**
+     * identifier of color-unique token. If String contains this, it may be a problem.
+     */
     public static final String colorCharacter = "&";
+
+    /**
+     * Ignore & char in text. \\& will be displayed literally.
+     */
     public static final String ignoreCharacter = "\\";
 
+    /**
+     * Shortcuts of text color
+     */
     public static final HashMap<Character,String> fgColors = new HashMap<Character, String>() {
         {
             put('n', "");
@@ -21,6 +39,9 @@ public final class ColorText {
         }
     };
 
+    /**
+     * Shortcuts of background color
+     */
     public static final HashMap<Character,String> bgColors = new HashMap<Character, String>() {
         {
             put('n', "");
@@ -35,8 +56,15 @@ public final class ColorText {
         }
     };
 
+    /**
+     * Convert plain text to ANSI-colored text.
+     * @param formattedText text to convert into ANSI.
+     * @return ANSI text.
+     * @deprecated 
+     */
+    @Deprecated
     public static String convertColoredText(String formattedText) {
-        String[] splittedText = formattedText.split(colorCharacter);
+        String[] splitText = formattedText.split(colorCharacter);
         StringBuilder stringBuilder = new StringBuilder();
         boolean isIgnore = false;
 
@@ -45,7 +73,7 @@ public final class ColorText {
         } else if (!formattedText.contains("&")) {
             return formattedText;
         } else {
-            for (String str: splittedText) {
+            for (String str: splitText) {
                 if (str.length() == 0)
                     continue;
                 if (isIgnore) {
@@ -78,5 +106,4 @@ public final class ColorText {
 
         return stringBuilder.toString();
     }
-
 }
