@@ -1,4 +1,7 @@
 package com.yeahx4.jamza.champion;
 
-public enum Champions {
+import java.io.Serializable;
+
+public enum Champions implements Serializable {
+    WARRIOR
 }
