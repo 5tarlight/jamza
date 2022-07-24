@@ -18,6 +18,13 @@ public class Jamza {
                     put("end", "종료");
                 }
             });
+
+            switch (input) {
+                case "new":
+                    break;
+                case "load":
+                    break;
+            }
         } while (!input.equals("end"));
     }
 }

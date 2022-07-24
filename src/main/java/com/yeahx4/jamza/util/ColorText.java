@@ -79,7 +79,7 @@ public final class ColorText {
                 }
                 colorTag = str.charAt(0);
 
-                if (str.charAt(str.length() - 1) == ignoreCharacter.charAt(0)) {
+                if (ignoreCharacter.charAt(0) == str.charAt(str.length() - 1)) {
                     text = str.substring(0, str.length() - 1);
                     isIgnore = true;
                 } else {
