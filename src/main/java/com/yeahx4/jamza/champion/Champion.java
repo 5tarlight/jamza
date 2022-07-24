@@ -123,4 +123,12 @@ public class Champion implements Serializable {
 
         return level;
     }
+
+    /**
+     * Heal every resource—mp and hp till the max
+     */
+    public void healAll() {
+        mp = maxMp;
+        hp = maxHp;
+    }
 }
