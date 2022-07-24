@@ -1,5 +1,7 @@
 package com.yeahx4.jamza.util;
+
 import java.util.InputMismatchException;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 /**
@@ -20,7 +22,7 @@ public final class Console {
      * @see java.io.OutputStream
      */
     public static void println(String text) {
-        System.out.println(ConsoleColor.ANSI_RESET + text);
+        System.out.println(ConsoleColor.RESET + text);
     }
 
     /**
@@ -31,7 +33,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void println(String color, String text) {
-        println(color + text + ConsoleColor.ANSI_RESET);
+        println(color + text + ConsoleColor.RESET);
     }
 
     /**
@@ -44,7 +46,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void println(String color1, String color2, String text) {
-        println(color1 + color2 + text + ConsoleColor.ANSI_RESET);
+        println(color1 + color2 + text + ConsoleColor.RESET);
     }
 
     /**
@@ -53,7 +55,7 @@ public final class Console {
      * @see java.io.OutputStream
      */
     public static void print(String text) {
-        System.out.print(ConsoleColor.ANSI_RESET + text);
+        System.out.print(ConsoleColor.RESET + text);
     }
 
     /**
@@ -64,7 +66,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void print(String color, String text) {
-        print(color + text + ConsoleColor.ANSI_RESET + ConsoleColor.ANSI_RESET);
+        print(color + text + ConsoleColor.RESET + ConsoleColor.RESET);
     }
 
     /**
@@ -77,7 +79,7 @@ public final class Console {
      * @see ConsoleColor
      */
     public static void print(String color1, String color2, String text) {
-        print(color1 + color2 + text + ConsoleColor.ANSI_RESET);
+        print(color1 + color2 + text + ConsoleColor.RESET);
     }
 
     /**
@@ -113,7 +115,7 @@ public final class Console {
                 Scanner scanner = new Scanner(System.in);
                 return scanner.nextInt();
             } catch (InputMismatchException ex) {
-                println(ConsoleColor.ANSI_RED, "숫자를 입력해주세요.");
+                println(ConsoleColor.RED, "숫자를 입력해주세요.");
             }
         }
     }
@@ -126,5 +128,82 @@ public final class Console {
     public static int readInt(String question) {
         print(question);
         return readInt();
+    }
+
+    /**
+     * Clear Console.
+     *
+     * This will work on terminals that support ANSI escape codes
+     * It will not work on Windows' CMD
+     * It will not work in the IDE's terminal
+     */
+    public static void clear() {
+        println("\033[H\033[2J");
+    }
+
+    /**
+     * Ask user of select options by index. Key of option must be unique.
+     *
+     * @param option Map of options. unique key(String) and value(String)
+     *               Only value will be delivered to user.
+     *               sort of map is same as put-order
+     * @return unique key of option map
+     */
+    public static String select(LinkedHashMap<String, String> option) {
+        return select("", option, "");
+    }
+
+    public static String select(LinkedHashMap<String, String> option, String cancelText) {
+        return select("", option, cancelText);
+    }
+
+    public static String select(String title, LinkedHashMap<String, String> option) {
+        return select(title, option, "");
+    }
+
+    /**
+     * Ask user of select options by index. Key of option must be unique.
+     *
+     * @param title Title of the selection
+     * @param option Map of options. unique key(String) and value(String)
+     *               Only value will be delivered to user.
+     *               sort of map is same as put-order
+     * @return unique key of option map
+     */
+    public static String select(String title, LinkedHashMap<String, String> option, String cancelText) {
+        String[] keys = option.keySet().toArray(new String[0]);
+        final boolean cancelable = !cancelText.isEmpty();
+        boolean done = false;
+        int answer;
+        do {
+            clear();
+            if (!title.isEmpty())
+                println(title);
+
+            for (int i = 0; i < keys.length; i++) {
+                println(String.format("%d. %s", i + 1, option.get(keys[i])));
+            }
+            if (cancelable)
+                println(String.format("%d. %s", keys.length + 1, cancelText));
+
+            println("");
+            answer = readInt("=> ") - 1;
+
+            if (answer == keys.length) {
+                return "cancel";
+            } else if (answer < keys.length && answer >= 0)
+                done = true;
+
+        } while (!done);
+
+        return keys[answer];
+    }
+
+    public static void printc(String colorText) {
+        System.out.print(ColorText.convertColoredText(colorText));
+    }
+
+    public static void printlnc(String colorText) {
+        System.out.println(ColorText.convertColoredText(colorText));
     }
 }
