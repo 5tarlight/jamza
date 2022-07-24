@@ -23,11 +23,6 @@ public final class ColorText {
     public static final String ignoreCharacter = "\\";
 
     /**
-     *
-     */
-    public static final String defaultColor = colorCharacter + "n";
-
-    /**
      * Shortcuts of text color
      */
     public static final HashMap<Character,String> colorTags = new HashMap<Character, String>() {
@@ -60,7 +55,7 @@ public final class ColorText {
      */
     @Deprecated
     public static String convertColoredText(String formattedText) {
-        String[] splitText = (defaultColor + formattedText).split(colorCharacter);
+        String[] splitText = (String.format("%s%s%s", colorCharacter, "n", formattedText).split(colorCharacter));
         StringBuilder stringBuilder = new StringBuilder();
         boolean isIgnore = false;
 
