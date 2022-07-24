@@ -200,10 +200,10 @@ public final class Console {
     }
 
     public static void printc(String colorText) {
-        System.out.print(ColorText.convertColoredText(colorText));
+        System.out.print(String.format("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET));
     }
 
     public static void printlnc(String colorText) {
-        System.out.println(ColorText.convertColoredText(colorText));
+        System.out.println(String.format("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET));
     }
 }

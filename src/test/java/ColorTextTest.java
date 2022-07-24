@@ -3,7 +3,6 @@ import com.yeahx4.jamza.util.Console;
 
 public class ColorTextTest {
     public static void main(String[] args) {
-        String text = ColorText.convertColoredText("yeah &ghaha \\&this");
-        Console.printc(text);
+        Console.printc("yeah &ghaha \\&this \\&ignore\\&\\&\\& &abcdefg &hijklmn");
     }
 }

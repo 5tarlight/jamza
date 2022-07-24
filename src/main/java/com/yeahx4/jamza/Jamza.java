@@ -19,7 +19,5 @@ public class Jamza {
                 }
             });
         } while (!input.equals("end"));
-
-    Console.printlnc(Console.readLine());
     }
 }

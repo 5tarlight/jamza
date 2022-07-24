@@ -8,9 +8,7 @@ import java.util.HashMap;
  *
  * @author hellun205
  * @since 1.0
- * @deprecated
  */
-@Deprecated
 public final class ColorText {
     /**
      * identifier of color-unique token. If String contains this, it may be a problem.
@@ -25,7 +23,7 @@ public final class ColorText {
     /**
      * Shortcuts of text color
      */
-    public static final HashMap<Character,String> fgColors = new HashMap<Character, String>() {
+    public static final HashMap<Character,String> colorTags = new HashMap<Character, String>() {
         {
             put('n', "");
             put('0', ConsoleColor.BLACK);
@@ -36,23 +34,14 @@ public final class ColorText {
             put('g', ConsoleColor.GREEN);
             put('p', ConsoleColor.PURPLE);
             put('y', ConsoleColor.YELLOW);
-        }
-    };
-
-    /**
-     * Shortcuts of background color
-     */
-    public static final HashMap<Character,String> bgColors = new HashMap<Character, String>() {
-        {
-            put('n', "");
-            put('0', ConsoleColor.BLACK_BG);
-            put('1', ConsoleColor.WHITE_BG);
-            put('b', ConsoleColor.BLUE_BG);
-            put('c', ConsoleColor.CYAN_BG);
-            put('r', ConsoleColor.RED_BG);
-            put('g', ConsoleColor.GREEN_BG);
-            put('p', ConsoleColor.PURPLE_BG);
-            put('y', ConsoleColor.YELLOW_BG);
+            put('Z', ConsoleColor.BLACK_BG);
+            put('W', ConsoleColor.WHITE_BG);
+            put('B', ConsoleColor.BLUE_BG);
+            put('C', ConsoleColor.CYAN_BG);
+            put('R', ConsoleColor.RED_BG);
+            put('G', ConsoleColor.GREEN_BG);
+            put('P', ConsoleColor.PURPLE_BG);
+            put('Y', ConsoleColor.YELLOW_BG);
         }
     };
 
@@ -60,50 +49,50 @@ public final class ColorText {
      * Convert plain text to ANSI-colored text.
      * @param formattedText text to convert into ANSI.
      * @return ANSI text.
-     * @deprecated 
      */
-    @Deprecated
     public static String convertColoredText(String formattedText) {
-        String[] splitText = formattedText.split(colorCharacter);
+        String[] splitText = (String.format("%s%s%s", colorCharacter, "n", formattedText).split(colorCharacter));
         StringBuilder stringBuilder = new StringBuilder();
         boolean isIgnore = false;
 
         if (formattedText.length() == 0) {
             return "";
-        } else if (!formattedText.contains("&")) {
+        } else if (!formattedText.contains(colorCharacter)) {
             return formattedText;
         } else {
             for (String str: splitText) {
+                String text;
+                char colorTag;
+
                 if (str.length() == 0)
                     continue;
+
                 if (isIgnore) {
-                    isIgnore = false;
-                    stringBuilder.append(colorCharacter).append(str);
+                    if (str.charAt(str.length() - 1) == ignoreCharacter.charAt(0)) {
+                        isIgnore = true;
+                        stringBuilder.append(colorCharacter).append(str.substring(0, str.length() - 1));
+                    } else {
+                        isIgnore = false;
+                        stringBuilder.append(colorCharacter).append(str);
+                    }
                     continue;
                 }
-
-                String text = "";
-                char bgTag = str.charAt(0);
-                char fgTag = str.charAt(1);
+                colorTag = str.charAt(0);
 
                 if (str.charAt(str.length() - 1) == ignoreCharacter.charAt(0)) {
-                    text = str.substring(2, str.length() - 1);
+                    text = str.substring(0, str.length() - 1);
                     isIgnore = true;
                 } else {
-                    text = str.substring(2);
+                    text = str;
                 }
 
-                stringBuilder.append(ConsoleColor.RESET);
-
-                if (fgColors.containsKey(fgTag))
-                    stringBuilder.append(fgColors.get(fgTag));
-                if (bgColors.containsKey(bgTag))
-                    stringBuilder.append(bgColors.get(bgTag));
-                stringBuilder.append(text);
+                if (colorTags.containsKey(colorTag)) {
+                    stringBuilder.append(colorTags.get(colorTag));
+                    stringBuilder.append(text.substring(1));
+                } else
+                    stringBuilder.append(text);
             }
-            stringBuilder.append(ConsoleColor.RESET);
         }
-
         return stringBuilder.toString();
     }
 }
