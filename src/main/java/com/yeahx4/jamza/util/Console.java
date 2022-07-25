@@ -3,6 +3,7 @@ package com.yeahx4.jamza.util;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
+import java.util.function.Function;
 
 /**
  * Console class provides static methods to help use of system console(stdin).
@@ -105,6 +106,24 @@ public final class Console {
         return readLine();
     }
 
+    public static String readLine(Function<String, Boolean> func) {
+        String input;
+        do {
+            input = readLine();
+        } while (!func.apply(input));
+
+        return input;
+    }
+
+    public static String readLine(String question, Function<String, Boolean> func) {
+        String input;
+        do {
+            input = readLine(question);
+        } while (!func.apply(input));
+
+        return input;
+    }
+
     /**
      * read input from user. If non-integer value get in, user will be infinitely asked to input again with error message.
      * @return int input from user
@@ -126,8 +145,15 @@ public final class Console {
      * @return int input from user
      */
     public static int readInt(String question) {
-        print(question);
-        return readInt();
+        while (true) {
+            try {
+                print(question);
+                Scanner scanner = new Scanner(System.in);
+                return scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                println(ConsoleColor.RED, "숫자를 입력해주세요.");
+            }
+        }
     }
 
     /**
@@ -143,36 +169,57 @@ public final class Console {
 
     /**
      * Ask user of select options by index. Key of option must be unique.
+     * Without title
      *
      * @param option Map of options. unique key(String) and value(String)
      *               Only value will be delivered to user.
      *               sort of map is same as put-order
-     * @return unique key of option map
+     * @return unique key of option map {@code null} if canceled.
      */
-    public static String select(LinkedHashMap<String, String> option) {
-        return select("", option, "");
+    public static <T> T select(LinkedHashMap<T, String> option) {
+        return select("", option);
     }
 
-    public static String select(LinkedHashMap<String, String> option, String cancelText) {
-        return select("", option, cancelText);
-    }
+//    /**
+//     * Ask user of select options by index. Key of option must be unique.
+//     * Without title, automatic cancel message
+//     * With automatic cancel
+//     *
+//     * @param option Map of options. unique key(String) and value(String)
+//     *               Only value will be delivered to user.
+//     *               sort of map is same as put-order
+//     * @param cancelText Text shown for cancel
+//     * @return unique key of option map {@code null} if canceled.
+//     */
+//    public static <T> T select(LinkedHashMap<T, String> option, String cancelText) {
+//        return select("", option, cancelText);
+//    }
 
-    public static String select(String title, LinkedHashMap<String, String> option) {
-        return select(title, option, "");
-    }
+//    /**
+//     * Ask user of select options by index. Key of option must be unique.
+//     * not automatic cancel message
+//     *
+//     * @param title Title of the selection
+//     * @param option Map of options. unique key(String) and value(String)
+//     *               Only value will be delivered to user.
+//     *               sort of map is same as put-order
+//     * @return unique key of option map {@code null} if canceled.
+//     */
+//    public static <T> T select(String title, LinkedHashMap<T, String> option) {
+//        return select(title, option);
+//    }
 
     /**
      * Ask user of select options by index. Key of option must be unique.
-     *
+     * With automatic cancel message
      * @param title Title of the selection
      * @param option Map of options. unique key(String) and value(String)
      *               Only value will be delivered to user.
      *               sort of map is same as put-order
-     * @return unique key of option map
+     * @return unique key of option map. {@code null} if canceled.
      */
-    public static String select(String title, LinkedHashMap<String, String> option, String cancelText) {
-        String[] keys = option.keySet().toArray(new String[0]);
-        final boolean cancelable = !cancelText.isEmpty();
+    public static <T> T select(String title, LinkedHashMap<T, String> option) {
+        T[] keys = (T[])option.keySet().toArray();
         boolean done = false;
         int answer;
         do {
@@ -183,15 +230,11 @@ public final class Console {
             for (int i = 0; i < keys.length; i++) {
                 println(String.format("%d. %s", i + 1, option.get(keys[i])));
             }
-            if (cancelable)
-                println(String.format("%d. %s", keys.length + 1, cancelText));
 
             println("");
             answer = readInt("=> ") - 1;
 
-            if (answer == keys.length) {
-                return "cancel";
-            } else if (answer < keys.length && answer >= 0)
+            if (answer < keys.length && answer >= 0)
                 done = true;
 
         } while (!done);
@@ -199,11 +242,25 @@ public final class Console {
         return keys[answer];
     }
 
+    /**
+     * Print colored text
+     * work with {@link #print(String)}
+     *
+     * @param colorText colored text
+     * @see ColorText
+     */
     public static void printc(String colorText) {
-        System.out.print(String.format("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET));
+        System.out.printf("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET);
     }
 
+    /**
+     * Println colored text
+     * work with {@link #println(String)}
+     *
+     * @param colorText colored text
+     * @see ColorText
+     */
     public static void printlnc(String colorText) {
-        System.out.println(String.format("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET));
+        System.out.printf("%s%s%s\n", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET);
     }
 }

@@ -1,5 +1,6 @@
 package com.yeahx4.jamza;
 
+import com.yeahx4.jamza.champion.Player;
 import com.yeahx4.jamza.util.Console;
 import com.yeahx4.jamza.util.ConsoleColor;
 
@@ -20,10 +21,8 @@ public class Jamza {
             });
 
             switch (input) {
-                case "new":
-                    break;
-                case "load":
-                    break;
+                case "new" -> Player.createNewChampion();
+                case "load" -> Player.loadChampion();
             }
         } while (!input.equals("end"));
     }

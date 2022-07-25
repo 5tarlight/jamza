@@ -1,8 +1,8 @@
 import com.yeahx4.jamza.util.ColorText;
 import com.yeahx4.jamza.util.Console;
 
-public class ColorTextTest {
+public class  ColorTextTest {
     public static void main(String[] args) {
-        Console.printc("yeah &ghaha \\&this \\&ignore\\&\\&\\& &abcdefg &hijklmn");
+        Console.printc("yeah &ghaha \\&this \\&ignore\\&\\&\\& &r&abcdefg &hijklmn");
     }
 }
