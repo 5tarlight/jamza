@@ -66,7 +66,7 @@ public class Champion extends Entity implements Serializable {
 
         int newLevel = (int)Math.floor(-1 + Math.sqrt(100 + this.exp) / 10) + 1;
 
-        if (newLevel > level) {
+        if (newLevel != level) {
             level = newLevel;
 
             int prevHp = maxHp;

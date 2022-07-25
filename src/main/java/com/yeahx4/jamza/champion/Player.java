@@ -1,5 +1,7 @@
 package com.yeahx4.jamza.champion;
 
+import java.util.Arrays;
+
 /**
  * Champion util static class
  *
@@ -29,5 +31,15 @@ public final class Player {
                 return new Champion(nickname, null); // Cannot be executed
             }
         }
+    }
+
+    public static boolean createNewChampion() {
+        var chms = Arrays.asList(Champions.values());
+
+        return false;
+    }
+
+    public static boolean loadChampionFromFile() {
+        return false;
     }
 }

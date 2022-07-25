@@ -1,5 +1,13 @@
 package com.yeahx4.jamza.champion;
 
+/**
+ * Entity super class
+ * Entity includes Playable character, enemy etc.
+ * Extending this class adds attack and defend stats.
+ *
+ * @author yeahx4
+ * @since 1.0
+ */
 public abstract class Entity {
     public final String name;
 
