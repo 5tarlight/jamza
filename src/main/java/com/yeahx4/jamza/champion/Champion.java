@@ -9,52 +9,13 @@ import java.io.Serializable;
  * @author yeahx4
  * @since 1.0
  */
-public class Champion implements Serializable {
-    public final String name;
+public class Champion extends Entity implements Serializable {
     public final Champions type;
 
     public String nickname;
 
-    public long exp;
-    public int level;
-    public int maxHp;
-    public int hp;
-    public int maxMp;
-    public int mp;
-    public int ad;
-    public int ap;
-    public int adDur;
-    public int apDur;
-
-    /**
-     * preemptive strike
-     */
-    public int speed;
-    /**
-     * Critical damage
-     */
-    public int crit;
-    /**
-     * Incapacitation
-     */
-    public int incap;
-
-    public int baseHp;
-    public int baseMp;
-    public int baseAd;
-    public int baseAp;
-    public int baseAdDur;
-    public int baseApDur;
-
-    public int growthHp;
-    public int growthMp;
-    public int growthAd;
-    public int growthAp;
-    public int growthAdDur;
-    public int growthApDur;
-
     protected Champion(String name, Champions type) {
-        this.name = name;
+        super(name);
         this.type = type;
     }
 
@@ -92,6 +53,7 @@ public class Champion implements Serializable {
      * @param gain exp gain
      * @return updated level
      */
+    @Override
     public int exp(int gain) {
         this.exp += gain;
 
@@ -122,13 +84,5 @@ public class Champion implements Serializable {
         }
 
         return level;
-    }
-
-    /**
-     * Heal every resource—mp and hp till the max
-     */
-    public void healAll() {
-        mp = maxMp;
-        hp = maxHp;
     }
 }
