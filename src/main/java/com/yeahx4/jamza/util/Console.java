@@ -220,21 +220,21 @@ public final class Console {
      * Print colored text
      * work with {@link #print(String)}
      *
-     * @param colorText
+     * @param colorText colored text
      * @see ColorText
      */
     public static void printc(String colorText) {
-        System.out.print(String.format("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET));
+        System.out.printf("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET);
     }
 
     /**
      * Println colored text
      * work with {@link #println(String)}
      *
-     * @param colorText
+     * @param colorText colored text
      * @see ColorText
      */
     public static void printlnc(String colorText) {
-        System.out.println(String.format("%s%s%s", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET));
+        System.out.printf("%s%s%s%n", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET);
     }
 }
