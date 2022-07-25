@@ -9,9 +9,8 @@ import java.io.Serializable;
  * @author yeahx4
  * @since 1.0
  */
-public class Champion extends Entity implements Serializable {
+public class Champion extends Entity  {
     public final Champions type;
-
     public String nickname;
 
     protected Champion(String name, Champions type) {

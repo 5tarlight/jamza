@@ -1,5 +1,7 @@
 package com.yeahx4.jamza.champion;
 
+import java.io.Serializable;
+
 /**
  * Entity super class
  * Entity includes Playable character, enemy etc.
@@ -8,7 +10,7 @@ package com.yeahx4.jamza.champion;
  * @author yeahx4
  * @since 1.0
  */
-public abstract class Entity {
+public abstract class Entity implements Serializable {
     public final String name;
 
     public long exp;

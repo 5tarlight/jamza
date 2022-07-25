@@ -22,7 +22,7 @@ public class Jamza {
 
             switch (input) {
                 case "new" -> Player.createNewChampion();
-                case "load" -> Player.loadChampionFromFile();
+                case "load" -> Player.loadChampion();
             }
         } while (!input.equals("end"));
     }

@@ -2,19 +2,16 @@ package com.yeahx4.jamza.champion;
 
 import com.yeahx4.jamza.util.Console;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Champion util static class
@@ -27,7 +24,8 @@ public final class Player {
      * Directory where champion data stored
      */
     public static final String dir = "./data/player";
-    private static File df = new File(dir);
+    private static final File df = new File(dir);
+    public static Champion current = null;
 
     /**
      * Create new instance of champion with nickname
@@ -49,6 +47,8 @@ public final class Player {
     }
 
     /**
+     * This method must be called in game cycle.
+     *
      * Create new character with UX.
      * newly created character will be stored to file
      *
@@ -75,16 +75,47 @@ public final class Player {
                     Matcher matcher = pattern.matcher(str);
                     boolean reg = matcher.matches();
 
-                    return reg &&
-                            str.length() > 0 &&
-                            str.length() < 15 &&
-                            !names.contains(str);
+                    if (
+                        !reg ||
+                        str.length() <= 0 ||
+                        str.length() >= 15
+                    ) return false;
+
+                    assert names != null;
+                    return !names.contains(str);
                 }
         );
 
         Champion champion = newChampion(input, nickname);
 
         return saveChampion(champion);
+    }
+
+    /**
+     * This method must be called in game cycle.
+     *
+     * Load saved champion data from file.
+     *
+     * @return result
+     */
+    public static boolean loadChampion() {
+        LinkedHashMap<String, String> query = new LinkedHashMap<>();
+
+        Objects.requireNonNull(getChampionFileList())
+                .stream()
+                .map(s -> s.split("\\.")[0]) // remove file extension
+                .forEach(s -> query.put(
+                        s,
+                        String.format("%s (%s)", s, Objects.requireNonNull(getChampionFromFile(s)).name))
+                );
+        query.put("cancel", "취소");
+
+        String nickname = Console.select("불러올 캐릭터를 선택해주세요.", query);
+        if (nickname.equals("cancel"))
+            return false;
+
+         current = getChampionFromFile(nickname);
+         return true;
     }
 
     /**
@@ -118,12 +149,26 @@ public final class Player {
     }
 
     /**
-     * load stored champion data from file system.
+     * Load {@link Champion} class from file with nickname.
+     * {@code null} if not found.
      *
-     * @return result
+     * @param nick nickname to find
+     * @return instance of champion
      */
-    public static boolean loadChampionFromFile() {
-        return false;
+    public static Champion getChampionFromFile(String nick) {
+        File df = new File(dir);
+        File file = new File(df, String.format("%s.champion", nick));
+        checkDir();
+
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            return (Champion) ois.readObject();
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -140,15 +185,14 @@ public final class Player {
      * @return List of names
      */
     public static List<String> getChampionFileList() {
-        try {
-            checkDir();
-            List<String> files = Files.walk(Paths.get(dir))
+        checkDir();
+        try (Stream<Path> walk = Files.walk(Paths.get(dir))) {
+
+            return walk
                     .filter(Files::isRegularFile)
                     .map(Path::toFile)
-                    .map(f -> f.getName())
+                    .map(File::getName)
                     .toList();
-
-            return files;
         } catch (IOException ex) {
             return null;
         }
