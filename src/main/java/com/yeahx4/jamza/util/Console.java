@@ -145,8 +145,15 @@ public final class Console {
      * @return int input from user
      */
     public static int readInt(String question) {
-        print(question);
-        return readInt();
+        while (true) {
+            try {
+                print(question);
+                Scanner scanner = new Scanner(System.in);
+                return scanner.nextInt();
+            } catch (InputMismatchException ex) {
+                println(ConsoleColor.RED, "숫자를 입력해주세요.");
+            }
+        }
     }
 
     /**
