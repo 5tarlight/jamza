@@ -1,2 +1,2 @@
-./gradlew clean build
+./gradlew clean build --stacktrace
 java -jar ./build/libs/$(ls ./build/libs)

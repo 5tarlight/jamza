@@ -3,6 +3,7 @@ package com.yeahx4.jamza.util;
 import java.util.InputMismatchException;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
+import java.util.function.Function;
 
 /**
  * Console class provides static methods to help use of system console(stdin).
@@ -103,6 +104,24 @@ public final class Console {
     public static String readLine(String question) {
         print(question);
         return readLine();
+    }
+
+    public static String readLine(Function<String, Boolean> func) {
+        String input;
+        do {
+            input = readLine();
+        } while (!func.apply(input));
+
+        return input;
+    }
+
+    public static String readLine(String question, Function<String, Boolean> func) {
+        String input;
+        do {
+            input = readLine(question);
+        } while (!func.apply(input));
+
+        return input;
     }
 
     /**
@@ -235,6 +254,6 @@ public final class Console {
      * @see ColorText
      */
     public static void printlnc(String colorText) {
-        System.out.printf("%s%s%s%n", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET);
+        System.out.printf("%s%s%s\n", ConsoleColor.RESET, ColorText.convertColoredText(colorText), ConsoleColor.RESET);
     }
 }
