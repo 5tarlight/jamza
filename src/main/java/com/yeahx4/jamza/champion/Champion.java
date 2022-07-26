@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Champion extends Entity  {
     public final Champions type;
     public String nickname;
+    public String located;
 
     protected Champion(String name, Champions type) {
         super(name);
