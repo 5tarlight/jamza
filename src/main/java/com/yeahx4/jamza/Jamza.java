@@ -21,8 +21,17 @@ public class Jamza {
             });
 
             switch (input) {
-                case "new" -> Player.createNewChampion();
-                case "load" -> Player.loadChampion();
+                case "new":
+                    if (Player.createNewChampion()) {
+//                        Console.println(String.format("%b", Player.current == null));
+//                        Console.readLine();
+                        Player.changeLocation("test-map");
+                    }
+                    break;
+                case "load":
+                    if (Player.loadChampion())
+                        Player.changeLocation("test-map");
+                break;
             }
         } while (!input.equals("end"));
     }

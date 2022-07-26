@@ -1,5 +1,6 @@
 package com.yeahx4.jamza.champion;
 
+import com.yeahx4.jamza.map.Maps;
 import com.yeahx4.jamza.util.Console;
 
 import java.io.File;
@@ -200,6 +201,19 @@ public final class Player {
                     .toList();
         } catch (IOException ex) {
             return null;
+        }
+    }
+
+    /**
+     * Change the location of the champion.
+     * The choices to perform on this map are output.
+     *
+     * @param tag unique tag of the map
+     */
+    public static void changeLocation(String tag) {
+        if (Maps.contains(tag)) {
+            current.located = tag;
+            Maps.get(tag).whenLocated();
         }
     }
 }
