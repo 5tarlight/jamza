@@ -212,7 +212,7 @@ public final class Player {
      */
     public static void changeLocation(String tag) {
         if (Maps.contains(tag)) {
-            current.located = tag;
+            current.location = tag;
             Maps.get(tag).whenLocated();
         }
     }

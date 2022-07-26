@@ -1,7 +1,5 @@
 package com.yeahx4.jamza.champion;
 
-import java.io.Serializable;
-
 /**
  * Champion super class
  * All subclasses must override fields otherwise default is 0.
@@ -12,7 +10,7 @@ import java.io.Serializable;
 public class Champion extends Entity  {
     public final Champions type;
     public String nickname;
-    public String located;
+    public String location;
 
     protected Champion(String name, Champions type) {
         super(name);

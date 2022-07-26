@@ -22,11 +22,8 @@ public class Jamza {
 
             switch (input) {
                 case "new":
-                    if (Player.createNewChampion()) {
-//                        Console.println(String.format("%b", Player.current == null));
-//                        Console.readLine();
+                    if (Player.createNewChampion())
                         Player.changeLocation("test-map");
-                    }
                     break;
                 case "load":
                     if (Player.loadChampion())
