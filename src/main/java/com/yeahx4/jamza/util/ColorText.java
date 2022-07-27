@@ -25,7 +25,7 @@ public final class ColorText {
      */
     public static final HashMap<Character,String> colorTags = new HashMap<Character, String>() {
         {
-            put('n', "");
+            put('n', ConsoleColor.RESET);
             put('0', ConsoleColor.BLACK);
             put('1', ConsoleColor.WHITE);
             put('b', ConsoleColor.BLUE);

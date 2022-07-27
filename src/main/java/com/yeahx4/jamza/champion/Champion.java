@@ -1,6 +1,6 @@
 package com.yeahx4.jamza.champion;
 
-import java.io.Serializable;
+import com.yeahx4.jamza.map.Maps;
 
 /**
  * Champion super class
@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class Champion extends Entity  {
     public final Champions type;
     public String nickname;
+    public Maps location;
 
     protected Champion(String name, Champions type) {
         super(name);

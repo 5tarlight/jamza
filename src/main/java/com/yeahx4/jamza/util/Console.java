@@ -174,7 +174,7 @@ public final class Console {
      * @param option Map of options. unique key(String) and value(String)
      *               Only value will be delivered to user.
      *               sort of map is same as put-order
-     * @return unique key of option map {@code null} if canceled.
+     * @return unique key of option map
      */
     public static <T> T select(LinkedHashMap<T, String> option) {
         return select("", option);
@@ -211,12 +211,12 @@ public final class Console {
 
     /**
      * Ask user of select options by index. Key of option must be unique.
-     * With automatic cancel message
+     *
      * @param title Title of the selection
      * @param option Map of options. unique key(String) and value(String)
      *               Only value will be delivered to user.
      *               sort of map is same as put-order
-     * @return unique key of option map. {@code null} if canceled.
+     * @return unique key of option map.
      */
     public static <T> T select(String title, LinkedHashMap<T, String> option) {
         T[] keys = (T[])option.keySet().toArray();
@@ -240,6 +240,23 @@ public final class Console {
         } while (!done);
 
         return keys[answer];
+    }
+
+    /**
+     * Ask user of select options by index. Key of option must be unique.
+     * With colored title
+     *
+     * @param title Title of the selection (colored text)
+     * @param option Map of options. unique key(String) and value(String)
+     *               Only value will be delivered to user.
+     *               sort of map is same as put-order
+     * @return unique key of option map.
+     */
+    public static <T> T selectc(String title, LinkedHashMap<T, String> option) {
+        LinkedHashMap<T, String> colorMap = option;
+        colorMap.forEach((t, str) -> colorMap.replace(t, ColorText.convertColoredText(str)));
+
+        return select(ColorText.convertColoredText(title), colorMap);
     }
 
     /**
