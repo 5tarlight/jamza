@@ -24,10 +24,14 @@ public class Jamza {
                 case "new":
                     if (Player.createNewChampion())
                         Player.changeLocation("test-map");
+                    else
+                        Console.printlnc("&r캐릭터를 만들지 못했습니다.");
                     break;
                 case "load":
                     if (Player.loadChampion())
                         Player.changeLocation("test-map");
+                    else
+                        Console.printlnc("&c캐릭터를 불러오지 못했습니다.");
                 break;
             }
         } while (!input.equals("end"));

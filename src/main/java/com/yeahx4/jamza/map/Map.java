@@ -19,22 +19,22 @@ public abstract class Map implements Serializable {
 
     /**
      * The choices to perform on this map.
-     * {@link #onPerform(String)} must have an actions on the options.
+     * {@link #interact(String)} must have an actions on the options.
      */
-    public final LinkedHashMap<String, String> optionsToPerform;
+    public final LinkedHashMap<String, String> interactOption;
 
     /**
      * @param name the name of the map
      * @param description description of the map
      * @param combatable combat availability
-     * @param optionsToPerform The choices to perform on this map.
-     *                         {@link #onPerform(String)} must have an actions on the options.
+     * @param interactOption The choices to perform on this map.
+     *                         {@link #interact(String)} must have an actions on the options.
      */
-    protected Map(String name, String description, boolean combatable, LinkedHashMap<String, String> optionsToPerform) {
+    protected Map(String name, String description, boolean combatable, LinkedHashMap<String, String> interactOption) {
         this.name = name;
         this.description = description;
         this.combatable = combatable;
-        this.optionsToPerform = optionsToPerform;
+        this.interactOption = interactOption;
     }
 
     /**
@@ -47,39 +47,29 @@ public abstract class Map implements Serializable {
             String input = Console.selectc(String.format("&y%s&n에서 무엇을 하시겠습니까?", name), new LinkedHashMap<>() {
                 {
                     put("info", "맵 정보 보기");
-                    putAll(optionsToPerform);
-                    put("end", "게임 종료");
+                    putAll(interactOption);
+                    put("end", "취소");
                 }
             });
 
             switch (input) {
-                case "info":
+                case "info" -> {
                     Console.printlnc(String.format("&y%s&n\n%s", name, description));
                     Console.readLine();
-                    break;
-                case "end":
-                    boolean exitQuestion = Console.select("게임을 종료하시겠습니까?", new LinkedHashMap<Boolean, String>() {
-                        {
-                            put(true, "네");
-                            put(false, "아니요");
-                        }
-                    });
-                    if (exitQuestion) {
-                        Player.saveChampion(Player.current);
-                        done = true;
-                    }
-                    break;
-                default:
-                    onPerform(input);
-                    break;
+                }
+                case "end" -> {
+                    Player.saveChampion(Player.current);
+                    done = true;
+                }
+                default -> interact(input);
             }
         } while(!done);
     }
 
     /**
-     * Performs the action corresponding to the {@link #optionsToPerform}.
+     * Performs the action corresponding to the {@link #interactOption}.
      * This must have an actions on the options.
-     * @param key unique key of {@link #optionsToPerform}
+     * @param key unique key of {@link #interactOption}
      */
-    public abstract void onPerform(String key);
+    public abstract void interact(String key);
 }

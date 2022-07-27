@@ -12,7 +12,7 @@ public final class Maps {
     /**
      * unique tag of the maps
      */
-    public static final HashMap<String, Map> list = new HashMap() {
+    public static final HashMap<String, Map> list = new HashMap<>() {
         {
             put("test-map", new TestMap());
         }
@@ -25,7 +25,7 @@ public final class Maps {
      * @return map found by unique tag
      */
     public static Map get(String tag) {
-        return list.getOrDefault(tag, null);
+        return list.get(tag);
     }
 
     public static boolean contains(String tag) {

@@ -253,7 +253,10 @@ public final class Console {
      * @return unique key of option map.
      */
     public static <T> T selectc(String title, LinkedHashMap<T, String> option) {
-        return select(ColorText.convertColoredText(title), option);
+        LinkedHashMap<T, String> colorMap = option;
+        colorMap.forEach((t, str) -> colorMap.replace(t, ColorText.convertColoredText(str)));
+
+        return select(ColorText.convertColoredText(title), colorMap);
     }
 
     /**

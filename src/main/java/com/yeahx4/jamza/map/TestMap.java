@@ -23,7 +23,7 @@ public final class TestMap extends Map {
 
 
     @Override
-    public void onPerform(String key) {
+    public void interact(String key) {
         switch (key) {
             case "test":
                 Console.println("test!");

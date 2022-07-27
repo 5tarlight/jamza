@@ -93,6 +93,7 @@ public final class Player {
         );
 
         Champion champion = newChampion(input, nickname);
+        current = champion;
 
         return saveChampion(champion);
     }
