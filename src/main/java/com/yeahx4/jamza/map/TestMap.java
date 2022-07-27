@@ -1,6 +1,5 @@
 package com.yeahx4.jamza.map;
 
-import com.yeahx4.jamza.map.Map;
 import com.yeahx4.jamza.util.Console;
 
 import java.util.LinkedHashMap;
@@ -21,14 +20,13 @@ public final class TestMap extends Map {
         });
     }
 
-
     @Override
     public void interact(String key) {
         switch (key) {
-            case "test":
+            case "test" -> {
                 Console.println("test!");
                 Console.readLine();
-                break;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.yeahx4.jamza;
 
 import com.yeahx4.jamza.champion.Player;
+import com.yeahx4.jamza.map.Maps;
 import com.yeahx4.jamza.util.Console;
 import com.yeahx4.jamza.util.ConsoleColor;
 
@@ -23,13 +24,13 @@ public class Jamza {
             switch (input) {
                 case "new":
                     if (Player.createNewChampion())
-                        Player.changeLocation("test-map");
+                        Player.changeLocation(Maps.TestMap);
                     else
                         Console.printlnc("&r캐릭터를 만들지 못했습니다.");
                     break;
                 case "load":
                     if (Player.loadChampion())
-                        Player.changeLocation("test-map");
+                        Player.changeLocation(Maps.TestMap);
                     else
                         Console.printlnc("&c캐릭터를 불러오지 못했습니다.");
                 break;

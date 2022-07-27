@@ -4,6 +4,7 @@ import com.yeahx4.jamza.champion.Player;
 import com.yeahx4.jamza.util.Console;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -72,4 +73,12 @@ public abstract class Map implements Serializable {
      * @param key unique key of {@link #interactOption}
      */
     public abstract void interact(String key);
+
+    private static HashMap<Maps, Map> maps = new HashMap<>() {{
+       put(Maps.TestMap, new TestMap());
+    }};
+
+    public static Map get(Maps map) {
+        return maps.get(map);
+    }
 }

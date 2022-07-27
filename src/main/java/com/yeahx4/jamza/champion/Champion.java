@@ -1,5 +1,7 @@
 package com.yeahx4.jamza.champion;
 
+import com.yeahx4.jamza.map.Maps;
+
 /**
  * Champion super class
  * All subclasses must override fields otherwise default is 0.
@@ -10,7 +12,7 @@ package com.yeahx4.jamza.champion;
 public class Champion extends Entity  {
     public final Champions type;
     public String nickname;
-    public String location;
+    public Maps location;
 
     protected Champion(String name, Champions type) {
         super(name);

@@ -1,5 +1,6 @@
 package com.yeahx4.jamza.champion;
 
+import com.yeahx4.jamza.map.Map;
 import com.yeahx4.jamza.map.Maps;
 import com.yeahx4.jamza.util.Console;
 
@@ -211,10 +212,8 @@ public final class Player {
      *
      * @param tag unique tag of the map
      */
-    public static void changeLocation(String tag) {
-        if (Maps.contains(tag)) {
-            current.location = tag;
-            Maps.get(tag).whenLocated();
-        }
+    public static void changeLocation(Maps tag) {
+        current.location = tag;
+        Map.get(tag).whenLocated();
     }
 }
